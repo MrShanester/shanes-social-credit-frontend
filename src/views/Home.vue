@@ -1,8 +1,22 @@
 <template>
   <div class="home">
     <h1>SHANES SOCIAL CREDIT SCORE</h1>
-    <button v-on:click="getFriends()">Friends</button>
-    <h2>{{ friends }}</h2>
+    <img src="https://t4.ftcdn.net/jpg/02/93/03/75/360_F_293037586_KE5TaXukXeKkHJ2RAbDeqJuUOhf2qav0.jpg" alt="" />
+    <br />
+    <h2>Always Watching</h2>
+    <p></p>
+    <h3>"No good deed unnoticed, no bad deed unpunished."</h3>
+    <br />
+
+    <div v-for="friend in friends" v-bind:key="friend.id">
+      <img v-bind:src="friend.image_url" v-bind:alt="`No Image`" />
+      <h2>{{ friend.name }}</h2>
+      <h3>{{ friend.description }}</h3>
+      <p>Points: {{ friend.score }}</p>
+      <router-link v-bind:to="`/friendshow/${friend.id}`">
+        <button>View Social Status</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -15,6 +29,9 @@ export default {
       message: "Online",
       friends: [],
     };
+  },
+  created: function () {
+    this.getFriends();
   },
   methods: {
     getFriends: function () {
