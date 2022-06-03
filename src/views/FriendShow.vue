@@ -7,6 +7,7 @@
     <br />
     <h2>Social Credit Score: {{ friend.score }}</h2>
     <p></p>
+    <p></p>
 
     <br />
     <br />
