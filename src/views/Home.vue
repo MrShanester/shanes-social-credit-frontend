@@ -17,6 +17,10 @@
         <button>View Social Status</button>
       </router-link>
     </div>
+    <br />
+    <div class="modal">
+      <button>Add New Associate</button>
+    </div>
   </div>
 </template>
 
@@ -28,6 +32,7 @@ export default {
     return {
       message: "Online",
       friends: [],
+      newFriendParams: {},
     };
   },
   created: function () {
@@ -37,6 +42,12 @@ export default {
     getFriends: function () {
       axios.get("http://localhost:3000/friend").then((response) => {
         this.friends = response.data;
+        console.log(response.data);
+      });
+    },
+    addFriend: function () {
+      axios.post("http://localhost:3000/friend" + this.newFriendParams).then((response) => {
+        this.friends.push(response.data);
         console.log(response.data);
       });
     },
