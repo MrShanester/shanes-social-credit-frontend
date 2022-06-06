@@ -18,8 +18,51 @@
       </router-link>
     </div>
     <br />
-    <div class="modal">
-      <button>Add New Associate</button>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Add New Associate
+    </button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Be Precise, Be Accurate, Be Safe</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h1>Input Associate Information</h1>
+            <br />
+            <h2>Name:</h2>
+            <input type="text" v-model="newFriendParams.name" />
+            <br />
+            <p></p>
+            <h2>Description:</h2>
+            <input type="text" v-model="newFriendParams.description" />
+            <br />
+            <p></p>
+            <h2>Identifying Photo:</h2>
+            <input type="text" v-model="newFriendParams.image_url" />
+            <br />
+            <p></p>
+            <h2>Starting Score: 0</h2>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Return</button>
+            <button type="button" class="btn btn-primary" v-on:click="this.addFriend()">Create Associate</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,7 +75,12 @@ export default {
     return {
       message: "Online",
       friends: [],
-      newFriendParams: {},
+      newFriendParams: {
+        score: 0,
+        name: "",
+        description: "",
+        image_url: "",
+      },
     };
   },
   created: function () {
@@ -46,7 +94,7 @@ export default {
       });
     },
     addFriend: function () {
-      axios.post("http://localhost:3000/friend" + this.newFriendParams).then((response) => {
+      axios.post("http://localhost:3000/friend", this.newFriendParams).then((response) => {
         this.friends.push(response.data);
         console.log(response.data);
       });
